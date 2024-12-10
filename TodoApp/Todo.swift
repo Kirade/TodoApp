@@ -6,18 +6,19 @@
 //
 
 import Foundation
+import SwiftData
 
-@Observable
+@Model
 class Todo: Identifiable {
     var id: UUID
     var title: String
     var isCompleted: Bool
-    var description: String
+    var detail: String
     
     init(title: String, isCompleted: Bool = false, description: String = "") {
         self.id = UUID()
         self.title = title
         self.isCompleted = isCompleted
-        self.description = description
+        self.detail = description
     }
 }

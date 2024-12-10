@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    @State var todoList: [Todo] = [
+    @Environment(\.modelContext) private var modelContext
+    @Query var todoList: [Todo] = [
         Todo(title: "친구 만나기"),
         Todo(title: "과제 제출하기"),
         Todo(title: "푹 쉬기")
@@ -17,14 +19,15 @@ struct ContentView: View {
     func addTodo() {
         withAnimation {
             let newTodo = Todo(title: "새로운 투두")
-            todoList.append(newTodo)
+            modelContext.insert(newTodo)
         }
     }
     
     func deleteTodo(indexSet: IndexSet) {
         withAnimation {
             for index in indexSet {
-                todoList.remove(at: index)
+                let todo = todoList[index]
+                modelContext.delete(todo)
             }
         }
         
